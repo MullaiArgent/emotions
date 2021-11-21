@@ -125,3 +125,4 @@ try:
         emotionVideo(camera)
 except KeyboardInterrupt:
     print(d)
+    camera.close()
