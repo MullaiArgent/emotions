@@ -124,5 +124,11 @@ try:
         camera = cv2.VideoCapture(0)
         emotionVideo(camera)
 except KeyboardInterrupt:
-    print(d)
+    import csv
+
+    with open('meta_data.csv', mode='w') as employee_file:
+        employee_writer = csv.writer(employee_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+
+        employee_writer.writerow([a for a in d.keys()])
+        employee_writer.writerow([a for a in d.values()])
     camera.close()
