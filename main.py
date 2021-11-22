@@ -5,15 +5,14 @@ try:
     import cv2
     import numpy as np
     from tensorflow.keras.preprocessing.image import img_to_array
-
-    d = {"Angry":0, "Happy":0,"Fear":0,"Neutral":0,"sad":0,"Surprise":0}
+    # from picamera import PiCamera
+    d = {"Angry": 0, "Happy": 0, "Fear": 0, "Neutral": 0, "sad": 0, "Surprise": 0}
     model = Sequential()
     classifier = load_model('ferjj.h5')
 
     # We have 6 labels for the model
     class_labels = {0: 'Angry', 1: 'Fear', 2: 'Happy', 3: 'Neutral', 4: 'Sad', 5: 'Surprise'}
     classes = list(class_labels.values())
-
 
     face_classifier = cv2.CascadeClassifier('./Haarcascades/haarcascade_frontalface_default.xml')
 
@@ -30,7 +29,8 @@ try:
         box_coords = ((text_x - 10, text_y + 4), (text_x + text_width + 10, text_y - text_height - 5))
 
         cv2.rectangle(image, box_coords[0], box_coords[1], rectangle_bgr, cv2.FILLED)
-        cv2.putText(image, text, (text_x, text_y), font, fontScale=font_scale, color=FONT_COLOR, thickness=FONT_THICKNESS)
+        cv2.putText(image, text, (text_x, text_y), font, fontScale=font_scale, color=FONT_COLOR,
+                    thickness=FONT_THICKNESS)
         for i in d.keys():
             if i == text:
                 d[i] += 1
@@ -122,6 +122,7 @@ try:
 
     if __name__ == '__main__':
         camera = cv2.VideoCapture(0)
+        # camera = cv2.PiCamera()
         emotionVideo(camera)
 except KeyboardInterrupt:
     import csv
